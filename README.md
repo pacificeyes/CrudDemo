@@ -1,18 +1,21 @@
-# CrudDemo
+# CrudDemo App Description
 .Net Core Web API demo with async controller, service and repository with unit testing using MSTest and Moq
 
-# In order to run this code, below database script needs to be run on the SQL Server database, to create database objects:
+# DB Setup Steps
+## In order to run this code, below database script needs to be run on the SQL Server database, to create database objects:
 
 -------------------------------------------------------- Script Section starts here ----------------------------------------------------------------------------------
 USE [Customer]
 GO
-/****** Object:  Table [dbo].[Customers]    Script Date: 09/12/2021 18:55:42 ******/
+/****** Object:  Table [dbo].[Customers]    Script Date: 09/12/2021 19:09:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_PADDING ON
 GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Customers]') AND type in (N'U'))
+BEGIN
 CREATE TABLE [dbo].[Customers](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[FirstName] [varchar](50) NOT NULL,
@@ -25,6 +28,7 @@ CREATE TABLE [dbo].[Customers](
 	[Id] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+END
 GO
 SET ANSI_PADDING OFF
 GO
@@ -36,3 +40,14 @@ INSERT [dbo].[Customers] ([Id], [FirstName], [LastName], [CreatedDate], [Updated
 INSERT [dbo].[Customers] ([Id], [FirstName], [LastName], [CreatedDate], [UpdatedDate], [IsActive]) VALUES (5, N'Nora', N'Watson', CAST(0x0000ADA101336D4B AS DateTime), NULL, 0)
 SET IDENTITY_INSERT [dbo].[Customers] OFF
 --------------------------------------------------------- Script Section ends here -----------------------------------------------------------------------------------
+
+## DB Connection String change:
+The connection string from CrudApi -> appSettings.json needs to be changed
+From:
+"ConnectionStrings": {
+    "DefaultConnection": "Server=SAKAL-PC\\SQLEXPRESS;Database=Customer;Trusted_Connection=True;"
+  }
+To:
+"ConnectionStrings": {
+    "DefaultConnection": "Server=<Your SQL Server Name>;Database=Customer;Trusted_Connection=True;"
+  }
