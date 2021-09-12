@@ -1,6 +1,8 @@
 # CrudDemo App Description
 .Net Core Web API demo with async controller, service and repository with unit testing using MSTest and Moq
 
+## .Net Version - .Net 5
+
 # DB Setup Steps
 ## In order to run this code, below database script needs to be run on the SQL Server database, to create database objects:
 
